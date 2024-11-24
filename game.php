@@ -2,7 +2,7 @@
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['level']) && isset($_POST['attempts'])) {
-    
+    // Initialize game settings
     $level = intval($_POST['level']);
     $_SESSION['attempts_left'] = intval($_POST['attempts']);
 
@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['level']) && isset($_P
     $_SESSION['message'] = "Game started! Guess a number between 1 and {$_SESSION['max_number']}.";
 }
 
-
+// Redirect to start page if the game isn't set up correctly
 if (!isset($_SESSION['target_number'])) {
     header("Location: index.php");
     exit;
@@ -36,16 +36,12 @@ if (!isset($_SESSION['target_number'])) {
     <form method="post" action="process.php">
         <label for="guess">Enter your guess:</label>
         <input type="number" name="guess" id="guess" min="1" max="<?php echo $_SESSION['max_number']; ?>" required>
+        <br><br>
         <button type="submit">Submit Guess</button>
     </form>
-
+    <br>
     <form method="post" action="reset.php">
         <button type="submit">Reset Game</button>
     </form>
-
-    <h2>Statistics:</h2>
-    <p>Attempts Left: <?php echo $_SESSION['attempts_left']; ?></p>
-    <p>Correct Guesses: <?php echo $_SESSION['correct_guesses'] ?? 0; ?></p>
-    <p>Incorrect Guesses: <?php echo $_SESSION['incorrect_guesses'] ?? 0; ?></p>
 </body>
 </html>

@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guess'])) {
     $target = $_SESSION['target_number'];
     $_SESSION['attempts_left']--;
 
-    
+    // Determine result of the guess
     if ($guess > $target) {
         $_SESSION['message'] = "Lower! You have {$_SESSION['attempts_left']} attempts left.";
         $_SESSION['incorrect_guesses']++;
@@ -16,13 +16,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guess'])) {
     } else {
         $_SESSION['message'] = "Congratulations! You guessed the correct number: $target.";
         $_SESSION['correct_guesses']++;
-        unset($_SESSION['target_number']); 
+        unset($_SESSION['target_number']); // End current round
     }
 
-    
+    // Check if attempts are exhausted
     if ($_SESSION['attempts_left'] <= 0 && isset($_SESSION['target_number'])) {
         $_SESSION['message'] = "Game Over! The correct number was $target.";
-        unset($_SESSION['target_number']); 
+        unset($_SESSION['target_number']); // End current round
     }
 
     header("Location: game.php");
