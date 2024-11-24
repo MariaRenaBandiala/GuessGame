@@ -6,11 +6,11 @@ if (!isset($_SESSION['target_number'])) {
     $_SESSION['target_number'] = rand(1, 100);
 }
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guess'])) {
     $guess = intval($_POST['guess']);
     $target = $_SESSION['target_number'];
 
+   
     if ($guess > $target) {
         $_SESSION['message'] = "Lower! Try again.";
     } elseif ($guess < $target) {
@@ -21,8 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guess'])) {
     }
 }
 
+
 header("Location: index.php");
 exit;
-?>
-
-

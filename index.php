@@ -1,5 +1,7 @@
 <?php
 session_start();
+
+
 if (!isset($_SESSION['message'])) {
     $_SESSION['message'] = "Guess a number between 1 and 100.";
 }
@@ -13,7 +15,7 @@ if (!isset($_SESSION['message'])) {
 </head>
 <body>
     <h1>Guess the Number Game</h1>
-    <p><strong><?php echo $_SESSION['message']; ?></strong></p>
+    <p><strong><?php echo htmlspecialchars($_SESSION['message']); ?></strong></p>
 
     <form method="post" action="process.php">
         <input type="number" name="guess" min="1" max="100" required>
@@ -25,5 +27,3 @@ if (!isset($_SESSION['message'])) {
     </form>
 </body>
 </html>
-
-
