@@ -3,7 +3,7 @@ session_start();
 
 
 if (!isset($_SESSION['message'])) {
-    $_SESSION['message'] = "Guess a number between 1 and 100.";
+    $_SESSION['message'] = "Choose a level and set your number of guesses to start.";
 }
 ?>
 <!DOCTYPE html>
@@ -11,19 +11,23 @@ if (!isset($_SESSION['message'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guess the Number Game</title>
+    <title>Guess the Number Game - Start</title>
 </head>
 <body>
     <h1>Guess the Number Game</h1>
     <p><strong><?php echo htmlspecialchars($_SESSION['message']); ?></strong></p>
 
-    <form method="post" action="process.php">
-        <input type="number" name="guess" min="1" max="100" required>
-        <button type="submit">Submit Guess</button>
-    </form>
-
-    <form method="post" action="reset.php">
-        <button type="submit">Reset Game</button>
+    <form method="post" action="game.php">
+        <label for="level">Choose Level:</label>
+        <select name="level" id="level" required>
+            <option value="1">Level 1 (1-50)</option>
+            <option value="2">Level 2 (1-100)</option>
+        </select>
+        <br>
+        <label for="attempts">Number of Guesses:</label>
+        <input type="number" name="attempts" id="attempts" min="1" required>
+        <br>
+        <button type="submit">Start Game</button>
     </form>
 </body>
 </html>
